@@ -10,6 +10,7 @@ namespace BasheerCinamanApi.UnitOfWork.Interfaces
         public Task<List<ProductModel>> GetAllProductsByCatagoryId(int CatagoryId);
         public Task<List<ProductModel>> GetAllProductsByName(string ProductName);
         public Task<ProductModel> GetProductById(int ProductId);
+        public Task<ProductModel> GetProductsUnder10Amount(int ProductId);
 
 
     }
