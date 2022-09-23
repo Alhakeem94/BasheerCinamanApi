@@ -8,6 +8,6 @@ namespace BasheerCinamanApi.Models
         public int CatagoryId { get; set; }
         public string CatagoryName { get; set; }
         public string CatagoryImagePath { get; set; }
-
+        public DateTime DateOfMakingTheCatagory { get; set; } = DateTime.Now;
     }
 }

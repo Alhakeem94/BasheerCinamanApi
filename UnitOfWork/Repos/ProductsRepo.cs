@@ -81,5 +81,10 @@ namespace BasheerCinamanApi.UnitOfWork.Repos
                 return Product;
             }
         }
+
+        public Task<ProductModel> GetProductsUnder10Amount(int ProductId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

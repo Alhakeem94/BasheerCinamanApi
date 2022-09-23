@@ -20,7 +20,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<ICatagories, CatagoriesRepo>();
 builder.Services.AddScoped<ICompanies, CompaniesRepo>();
 builder.Services.AddScoped<IProducts, ProductsRepo>();
-
+builder.Services.AddScoped<IProvidor, ProvidorRepo>();
 
 var app = builder.Build();
 
@@ -32,7 +32,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseStaticFiles();
 app.UseAuthorization();
 
 app.MapControllers();

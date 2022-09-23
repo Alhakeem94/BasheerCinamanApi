@@ -1,6 +1,7 @@
 ﻿using BasheerCinamanApi.Data;
 using BasheerCinamanApi.Models;
 using BasheerCinamanApi.UnitOfWork.Interfaces;
+using BasheerCinamanApi.ViewModels.ProductsCatagoriesViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace BasheerCinamanApi.UnitOfWork.Repos
@@ -8,37 +9,67 @@ namespace BasheerCinamanApi.UnitOfWork.Repos
     public class CatagoriesRepo : ICatagories
     {
         private ApplicationDbContext _db;
+        private IWebHostEnvironment _env { get; set; }
 
-        public CatagoriesRepo(ApplicationDbContext db)
+        public CatagoriesRepo(ApplicationDbContext db, IWebHostEnvironment env)
         {
             _db = db;
+            _env = env;
         }
 
-
-
-
-
-        public async Task<string> AddCatagoryByAdmin(ProductCatagoryModel newProductCatagory)
+        public async Task<string> AddCatagoryByAdmin(ProductCatagoryViewModel newProductCatagoryViewModel)
         {
-            await _db.ProductCatagoryTable.AddAsync(newProductCatagory);
-           var Result = await _db.SaveChangesAsync();
+            var CheckIfExits =await CheckIfCatagoryExists(newProductCatagoryViewModel.CatagoryName);
 
-
-            if (Result == 0)
+            if (CheckIfExits)
             {
-                return "Error , Failed to add Catagory";
+                return "The Catagory Already Exists in the Database";
             }
             else
             {
-                return "The Catagory Has Been Added ";
+                var CatagoryModel = new ProductCatagoryModel();
+                CatagoryModel.CatagoryName = newProductCatagoryViewModel.CatagoryName;
+                CatagoryModel.CatagoryImagePath = await InputImage(newProductCatagoryViewModel.CatagoryImage);
+
+                await _db.ProductCatagoryTable.AddAsync(CatagoryModel);
+                var Result = await _db.SaveChangesAsync();
+                if (Result == 0)
+                {
+                    return "Error ,the Catagory Has not been Added";
+                }
+                else
+                {
+                    return "The Catagory Has Been Added Successfuly";
+                }
             }
 
-           
         }
 
-        public async Task<bool> CheckIfCatagoryExists(ProductCatagoryModel newProductCatagory)
+
+        private async Task<string> InputImage(IFormFile CatagoryImage)
         {
-            var DoesCatagoryExits = await _db.ProductCatagoryTable.FirstOrDefaultAsync(a => a.CatagoryName.ToLower() == newProductCatagory.CatagoryName.ToLower());
+            var FileName = CatagoryImage.FileName;
+            var FullName = Guid.NewGuid().ToString() + Path.GetExtension(CatagoryImage.FileName);
+
+            var FolderDirectory = $"{_env.WebRootPath}//Images";
+            var FullPath = Path.Combine(FolderDirectory, FullName);
+
+            var memorystream = new MemoryStream();
+            await CatagoryImage.OpenReadStream().CopyToAsync(memorystream);
+
+            await using (var fs = new FileStream(FullPath, FileMode.Create, FileAccess.Write))
+            {
+                memorystream.WriteTo(fs);
+            }
+
+            return $"https://localhost:7098/Images/{FullName}";
+        }
+
+
+
+        public async Task<bool> CheckIfCatagoryExists(string CatagoryName)
+        {
+            var DoesCatagoryExits = await _db.ProductCatagoryTable.FirstOrDefaultAsync(a => a.CatagoryName.ToLower() == CatagoryName.ToLower());
 
             if (DoesCatagoryExits is null)
             {
@@ -48,6 +79,11 @@ namespace BasheerCinamanApi.UnitOfWork.Repos
             {
                 return true;
             }
+        }
+
+        public Task<bool> CheckIfCatagoryExists(ProductCatagoryViewModel newProductCatagoryViewModel)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<List<ProductCatagoryModel>> GetListOfAllCatagories()

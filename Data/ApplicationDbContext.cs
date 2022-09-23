@@ -16,6 +16,8 @@ namespace BasheerCinamanApi.Data
         public DbSet<ProductModel> ProductsTable { get; set; }
         public DbSet<UsersModel> UsersTable { get; set; }
         public DbSet<ShoppingCartModel> ShoppingCartTable { get; set; }
+        public DbSet<ProductBatchModel> ProductBatchTable { get; set; }
+        public DbSet<ProvidorModel> ProvidorsTable { get; set; }
 
 
 

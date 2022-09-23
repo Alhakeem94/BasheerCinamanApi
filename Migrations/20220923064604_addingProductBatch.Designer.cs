@@ -4,6 +4,7 @@ using BasheerCinamanApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BasheerCinamanApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220923064604_addingProductBatch")]
+    partial class addingProductBatch
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,14 +48,9 @@ namespace BasheerCinamanApi.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProvidorId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("ProvidorId");
 
                     b.ToTable("ProductBatchTable");
                 });
@@ -73,9 +70,6 @@ namespace BasheerCinamanApi.Migrations
                     b.Property<string>("CatagoryName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateOfMakingTheCatagory")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("CatagoryId");
 
@@ -150,31 +144,6 @@ namespace BasheerCinamanApi.Migrations
                     b.ToTable("ProductsTable");
                 });
 
-            modelBuilder.Entity("BasheerCinamanApi.Models.ProvidorModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProvidorsTable");
-                });
-
             modelBuilder.Entity("BasheerCinamanApi.Models.ShoppingCartModel", b =>
                 {
                     b.Property<string>("CustomerNotes")
@@ -230,15 +199,7 @@ namespace BasheerCinamanApi.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BasheerCinamanApi.Models.ProvidorModel", "Providor")
-                        .WithMany()
-                        .HasForeignKey("ProvidorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Product");
-
-                    b.Navigation("Providor");
                 });
 
             modelBuilder.Entity("BasheerCinamanApi.Models.ProductModel", b =>

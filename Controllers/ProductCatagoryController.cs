@@ -1,5 +1,6 @@
 ﻿using BasheerCinamanApi.Models;
 using BasheerCinamanApi.UnitOfWork.Interfaces;
+using BasheerCinamanApi.ViewModels.ProductsCatagoriesViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,29 +21,14 @@ namespace BasheerCinamanApi.Controllers
 
 
         [HttpPost("AddCatagoryByAdmin")]
-        public  async Task<IActionResult> AddCatagory([FromForm]ProductCatagoryModel newProductCatagory)
+        public  async Task<IActionResult> AddCatagory([FromForm]ProductCatagoryViewModel newProductCatagoryViewModel)
         {
 
-            try
-            {
-                var CheckIfCatagoryExists = await _catagories.CheckIfCatagoryExists(newProductCatagory);
-
-                if (CheckIfCatagoryExists == true)
-                {
-                    return Ok("The Catagory Already Exits in the database");
-                }
-                else
-                {
-                    return Ok(await _catagories.AddCatagoryByAdmin(newProductCatagory));
-                }
-
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+            return Ok(await _catagories.AddCatagoryByAdmin(newProductCatagoryViewModel));
 
         }
+
+
 
         [HttpGet("GetAllCatagories")]
         public async Task<IActionResult> GetAllCatagories()

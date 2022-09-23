@@ -9,11 +9,12 @@ namespace BasheerCinamanApi.Models
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public string ProductDescription { get; set; }
-        public int Quantity { get; set; }
+        public int TotalQuantityOfBatches { get; set; }
         public double PriceOfPurchase { get; set; }
         public double PriceOfSelling { get; set; }
         public double PriceOfWholeSales { get; set; }
         public string ProductImagePath { get; set; }
+
 
 
 
@@ -26,7 +27,6 @@ namespace BasheerCinamanApi.Models
 
         public ProductCatagoryModel Catagory { get; set; }
         public ProductCompanyModel Company { get; set; }
-
 
 
 
