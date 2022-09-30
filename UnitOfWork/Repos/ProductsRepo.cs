@@ -1,6 +1,7 @@
 ﻿using BasheerCinamanApi.Data;
 using BasheerCinamanApi.Models;
 using BasheerCinamanApi.UnitOfWork.Interfaces;
+using BasheerCinamanApi.ViewModels.ProductsViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace BasheerCinamanApi.UnitOfWork.Repos
@@ -9,17 +10,35 @@ namespace BasheerCinamanApi.UnitOfWork.Repos
     {
 
         private ApplicationDbContext _db;
+        private IWebHostEnvironment _env;
 
-        public ProductsRepo(ApplicationDbContext db)
+        public ProductsRepo(ApplicationDbContext db, IWebHostEnvironment env)
         {
             _db = db;
+            _env = env;
         }
 
-        public async Task<string> AddProductByAdmin(ProductModel newProduct)
+        public async Task<string> AddProductByAdmin(AddProductViewModel newProductViewModel)
         {
             try
             {
-                await _db.ProductsTable.AddAsync(newProduct);
+
+
+                var DataBaseModel = new ProductModel();
+                DataBaseModel.ProductName = newProductViewModel.ProductName;
+                DataBaseModel.PriceOfPurchase = newProductViewModel.PriceOfPurchase;
+                DataBaseModel.CatagoryId = newProductViewModel.CatagoryId;
+                DataBaseModel.CompanyId = newProductViewModel.CompanyId;
+                DataBaseModel.ProductImagePath = await InputImage(newProductViewModel.ProductImageFile);
+                DataBaseModel.PriceOfSelling = newProductViewModel.PriceOfSelling;
+                DataBaseModel.PriceOfWholeSales = newProductViewModel.PriceOfWholeSales;
+                DataBaseModel.ProductDescription = newProductViewModel.ProductDescription;
+
+                await _db.ProductsTable.AddAsync(DataBaseModel);
+
+
+
+
                 var result = await _db.SaveChangesAsync();
 
                 if (result == 0)
@@ -34,12 +53,53 @@ namespace BasheerCinamanApi.UnitOfWork.Repos
             }
             catch (Exception e)
             {
-
-                return e.InnerException.ToString();
+                return e.Message;
             }
         }
 
-        public async Task<bool> CheckIfProductExist(ProductModel newProduct)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        private async Task<string> InputImage(IFormFile CatagoryImage)
+        {
+            var FileName = CatagoryImage.FileName;
+            var FullName = Guid.NewGuid().ToString() + Path.GetExtension(CatagoryImage.FileName);
+
+            var FolderDirectory = $"{_env.WebRootPath}//Images";
+            var FullPath = Path.Combine(FolderDirectory, FullName);
+
+            var memorystream = new MemoryStream();
+            await CatagoryImage.OpenReadStream().CopyToAsync(memorystream);
+
+            await using (var fs = new FileStream(FullPath, FileMode.Create, FileAccess.Write))
+            {
+                memorystream.WriteTo(fs);
+            }
+
+            return $"https://localhost:7098/Images/{FullName}";
+        }
+
+
+
+
+
+
+        public async Task<bool> CheckIfProductExist(AddProductViewModel newProduct)
         {
             var DoesProductExitsInDataBase = await _db.ProductsTable.FirstOrDefaultAsync(a => a.ProductName.ToLower() == newProduct.ProductName.ToLower());
             if (DoesProductExitsInDataBase is null)

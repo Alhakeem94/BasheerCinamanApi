@@ -9,7 +9,7 @@ namespace BasheerCinamanApi.Models
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public string ProductDescription { get; set; }
-        public int TotalQuantityOfBatches { get; set; }
+        public int TotalQuantityOfBatches { get; set; } = 0 ;
         public double PriceOfPurchase { get; set; }
         public double PriceOfSelling { get; set; }
         public double PriceOfWholeSales { get; set; }

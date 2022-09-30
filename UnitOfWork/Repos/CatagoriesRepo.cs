@@ -11,7 +11,7 @@ namespace BasheerCinamanApi.UnitOfWork.Repos
         private ApplicationDbContext _db;
         private IWebHostEnvironment _env { get; set; }
 
-        public CatagoriesRepo(ApplicationDbContext db, IWebHostEnvironment env)
+        public CatagoriesRepo(ApplicationDbContext db, IWebHostEnvironment env, IProducts products)
         {
             _db = db;
             _env = env;
@@ -30,7 +30,7 @@ namespace BasheerCinamanApi.UnitOfWork.Repos
                 var CatagoryModel = new ProductCatagoryModel();
                 CatagoryModel.CatagoryName = newProductCatagoryViewModel.CatagoryName;
                 CatagoryModel.CatagoryImagePath = await InputImage(newProductCatagoryViewModel.CatagoryImage);
-
+                
                 await _db.ProductCatagoryTable.AddAsync(CatagoryModel);
                 var Result = await _db.SaveChangesAsync();
                 if (Result == 0)

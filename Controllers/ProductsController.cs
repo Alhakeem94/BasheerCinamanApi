@@ -1,5 +1,6 @@
 ﻿using BasheerCinamanApi.Models;
 using BasheerCinamanApi.UnitOfWork.Interfaces;
+using BasheerCinamanApi.ViewModels.ProductsViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +20,7 @@ namespace BasheerCinamanApi.Controllers
 
 
         [HttpPost("AddProductByAdmin")]
-        public async Task<IActionResult> AddProduct(ProductModel newProduct)
+        public async Task<IActionResult> AddProduct([FromForm]AddProductViewModel newProduct)
         {
             try
             {

@@ -21,6 +21,7 @@ builder.Services.AddScoped<ICatagories, CatagoriesRepo>();
 builder.Services.AddScoped<ICompanies, CompaniesRepo>();
 builder.Services.AddScoped<IProducts, ProductsRepo>();
 builder.Services.AddScoped<IProvidor, ProvidorRepo>();
+builder.Services.AddScoped<IBatch, BatchesRepo>();
 
 var app = builder.Build();
 
