@@ -1,7 +1,10 @@
 using BasheerCinamanApi.Data;
 using BasheerCinamanApi.UnitOfWork.Interfaces;
 using BasheerCinamanApi.UnitOfWork.Repos;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,11 +20,21 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+
+
 builder.Services.AddScoped<ICatagories, CatagoriesRepo>();
 builder.Services.AddScoped<ICompanies, CompaniesRepo>();
 builder.Services.AddScoped<IProducts, ProductsRepo>();
 builder.Services.AddScoped<IProvidor, ProvidorRepo>();
 builder.Services.AddScoped<IBatch, BatchesRepo>();
+builder.Services.AddScoped<IUsers, UsersRepo>();
+    
+
 
 var app = builder.Build();
 

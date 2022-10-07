@@ -2,7 +2,6 @@
 using BasheerCinamanApi.Models;
 using BasheerCinamanApi.UnitOfWork.Interfaces;
 using BasheerCinamanApi.ViewModels.BatchesViewModels;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
 
 namespace BasheerCinamanApi.UnitOfWork.Repos
@@ -16,6 +15,9 @@ namespace BasheerCinamanApi.UnitOfWork.Repos
         {
             _db = db;
         }
+
+
+
 
         public async Task<string> AddNewBatch(AddNewBatchViewModel newBatchViewModel)
         {
