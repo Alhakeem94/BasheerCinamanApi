@@ -63,6 +63,32 @@ namespace BasheerCinamanApi.Data
                 NormalizedName = "SUPERADMIN"
             });
 
+            builder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Id = "a18be9c0-aa65-4af8-bd17-00bd93Admin",
+                Name = "Admin",
+                ConcurrencyStamp = RandomString(20),
+                NormalizedName = "ADMIN"
+            });
+
+
+            builder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Id = "a18be9c0-aa65-4af8-bd17-00bd93Dev",
+                Name = "Dev",
+                ConcurrencyStamp = RandomString(20),
+                NormalizedName = "DEV"
+            });
+
+
+            builder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Id = "a18be9c0-aa65-4af8-bd17-00bd93DataEntry",
+                Name = "DataEntry",
+                ConcurrencyStamp = RandomString(20),
+                NormalizedName = "DATAENTRY"
+            });
+
 
             builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
             {

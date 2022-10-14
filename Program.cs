@@ -33,17 +33,15 @@ builder.Services.AddScoped<IProducts, ProductsRepo>();
 builder.Services.AddScoped<IProvidor, ProvidorRepo>();
 builder.Services.AddScoped<IBatch, BatchesRepo>();
 builder.Services.AddScoped<IUsers, UsersRepo>();
-    
+builder.Services.AddScoped<ISuperAdmin, SuperAdminRepo>();
 
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

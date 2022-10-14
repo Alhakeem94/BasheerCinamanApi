@@ -2,6 +2,7 @@
 using BasheerCinamanApi.Models;
 using BasheerCinamanApi.UnitOfWork.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace BasheerCinamanApi.UnitOfWork.Repos
 {
@@ -29,7 +30,7 @@ namespace BasheerCinamanApi.UnitOfWork.Repos
 
 
             var Hasher = new PasswordHasher<IdentityUser>();
-           var CheckIfUserExistsInDataBase = await _userManager.FindByNameAsync(newUser.UserName);
+            var CheckIfUserExistsInDataBase = await _userManager.FindByNameAsync(newUser.UserName);
 
             if (CheckIfUserExistsInDataBase is null)
             {
@@ -70,19 +71,26 @@ namespace BasheerCinamanApi.UnitOfWork.Repos
 
 
 
-        public Task<List<UsersModel>> GetAllUsers()
+        public async Task<List<IdentityUser>> GetAllUsers()
         {
-            throw new NotImplementedException();
+            var AllUsers = await _db.Users.ToListAsync();
+            return AllUsers;
         }
 
-        public Task<UsersModel> GetUserById(int UserId)
+        public async Task<IdentityUser> GetUserById(string UserId)
         {
-            throw new NotImplementedException();
+            var User = await _db.Users.FirstOrDefaultAsync(a => a.Id == UserId);
+            // These Two Functions Work the Same 
+            //  var User2 = await _userManager.FindByIdAsync(UserId);
+            return User;
         }
 
-        public Task<UsersModel> GetUserByName(string UserName)
+        public async Task<IdentityUser> GetUserByName(string UserName)
         {
-            throw new NotImplementedException();
+            var User = await _db.Users.FirstOrDefaultAsync(a => a.UserName.ToLower() == UserName.ToLower());
+            //  These Two Functions Work the Same
+            //  var User2 = await _userManager.FindByNameAsync(UserName);
+            return User;
         }
     }
 }

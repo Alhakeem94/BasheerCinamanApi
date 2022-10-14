@@ -1,6 +1,5 @@
 ﻿using BasheerCinamanApi.Models;
 using BasheerCinamanApi.UnitOfWork.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BasheerCinamanApi.Controllers
@@ -11,10 +10,12 @@ namespace BasheerCinamanApi.Controllers
     {
 
         private IUsers _users;
+        private ISuperAdmin _SuperAdmin;
 
-        public UsersController(IUsers users)
+        public UsersController(IUsers users, ISuperAdmin superAdmin)
         {
             _users = users;
+            _SuperAdmin = superAdmin;
         }
 
 
@@ -26,8 +27,47 @@ namespace BasheerCinamanApi.Controllers
             return Ok(await _users.AddUserByAdminToTheSystem(newUserModel));
         }
 
+        [HttpGet("GetAllUsers")]
+        public async Task<IActionResult> GetAllUsersFromDataBase()
+        {
+            return Ok(await _users.GetAllUsers());
+        }
 
+
+
+        [HttpPost("AddToSuperAdminRole")]
+        public async Task<IActionResult> AddToSuperAdminRoleToDataBase([FromForm]string UserId)
+        {
+           return Ok( await _SuperAdmin.AddUserToSuperAdminRole(UserId));
+        }
+
+        [HttpPost("AddToAdminRole")]
+        public async Task<IActionResult> AddToAdminRoleToDataBase([FromForm] string UserId)
+        {
+            return Ok(await _SuperAdmin.AddUserToAdminRole(UserId));
+        }
+
+        [HttpPost("AddToDevRole")]
+        public async Task<IActionResult> AddToDevRoleToDataBase([FromForm] string UserId)
+        {
+            return Ok(await _SuperAdmin.AddUserToDevRole(UserId));
+        }
+
+        [HttpPost("AddToDataEntryRole")]
+        public async Task<IActionResult> AddToDataEntryRoleToDataBase([FromForm] string UserId)
+        {
+            return Ok(await _SuperAdmin.AddUserToDataEntryRole(UserId));
+        }
+
+
+
+        [HttpPut("UpdateToAdminRole")]
+        public async Task<IActionResult> UpdateToAdminRoleInDataBase([FromForm]string UserId)
+        {
+            return Ok(await _SuperAdmin.UpdateToAdminRole(UserId));
+        }
 
 
     }
+
 }
