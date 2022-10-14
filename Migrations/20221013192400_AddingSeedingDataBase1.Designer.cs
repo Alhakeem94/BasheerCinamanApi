@@ -4,6 +4,7 @@ using BasheerCinamanApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BasheerCinamanApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221013192400_AddingSeedingDataBase1")]
+    partial class AddingSeedingDataBase1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -252,7 +254,7 @@ namespace BasheerCinamanApi.Migrations
                         new
                         {
                             Id = "oi2eoij-1oqjsdkj-kaslk-OwnerRole",
-                            ConcurrencyStamp = "2YB01GCL0BJV3WD00SLH",
+                            ConcurrencyStamp = "QKTQW6FNE0NEI9XZRBDQ",
                             Name = "SuperAdmin",
                             NormalizedName = "SUPERADMIN"
                         });
@@ -352,15 +354,15 @@ namespace BasheerCinamanApi.Migrations
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d46f49e2-937e-45cf-84db-c40da17109b7",
+                            ConcurrencyStamp = "9c072942-f9dd-47f6-b793-69c651311df7",
                             Email = "BasheerSuper@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "BASHEERSUPER@GMAIL.COM",
                             NormalizedUserName = "BASHEERSUPER@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBMXl55dR21dgKaTpt0ytfqisUBXJQ4IJI9aRxTZNLotB3tuTYT0nMCPox1YV61Z2g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBgFmY0nn/FVgpOcS0cNvUQSqYkDKZxCdi5W1aEY6eiEhSztaSb/cfcXYk+bcJx/YA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "SFQZOSN6ADZYTOZ72RD3",
+                            SecurityStamp = "HO6VCQ5OFQFK3602GQQJ",
                             TwoFactorEnabled = false,
                             UserName = "BasheerSuper@gmail.com"
                         });

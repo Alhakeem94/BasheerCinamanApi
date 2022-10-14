@@ -4,6 +4,7 @@ using BasheerCinamanApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BasheerCinamanApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221013192505_AddingSeedingDataBase2")]
+    partial class AddingSeedingDataBase2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -247,15 +249,6 @@ namespace BasheerCinamanApi.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "oi2eoij-1oqjsdkj-kaslk-OwnerRole",
-                            ConcurrencyStamp = "2YB01GCL0BJV3WD00SLH",
-                            Name = "SuperAdmin",
-                            NormalizedName = "SUPERADMIN"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -346,24 +339,6 @@ namespace BasheerCinamanApi.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "d46f49e2-937e-45cf-84db-c40da17109b7",
-                            Email = "BasheerSuper@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "BASHEERSUPER@GMAIL.COM",
-                            NormalizedUserName = "BASHEERSUPER@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBMXl55dR21dgKaTpt0ytfqisUBXJQ4IJI9aRxTZNLotB3tuTYT0nMCPox1YV61Z2g==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "SFQZOSN6ADZYTOZ72RD3",
-                            TwoFactorEnabled = false,
-                            UserName = "BasheerSuper@gmail.com"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -428,13 +403,6 @@ namespace BasheerCinamanApi.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
-                            RoleId = "oi2eoij-1oqjsdkj-kaslk-OwnerRole"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

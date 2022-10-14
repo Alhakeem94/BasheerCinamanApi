@@ -23,7 +23,14 @@ namespace BasheerCinamanApi.Data
 
 
 
+        private static Random random = new Random();
 
+        public static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -43,7 +50,7 @@ namespace BasheerCinamanApi.Data
                 Email = "BasheerSuper@gmail.com",
                 NormalizedEmail = "BASHEERSUPER@GMAIL.COM",
                 SecurityStamp = RandomString(20),
-                PasswordHash = Hasher.HashPassword(null,"Bash123"),
+                PasswordHash = Hasher.HashPassword(null, "Bash123"),
                 ConcurrencyStamp = Guid.NewGuid().ToString(),
                 EmailConfirmed = true,
             });
@@ -67,14 +74,7 @@ namespace BasheerCinamanApi.Data
         }
 
 
-        private static Random random = new Random();
 
-        public static string RandomString(int length)
-        {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return new string(Enumerable.Repeat(chars, length)
-                .Select(s => s[random.Next(s.Length)]).ToArray());
-        }
 
 
         //protected override void OnModelCreating(ModelBuilder builder)
