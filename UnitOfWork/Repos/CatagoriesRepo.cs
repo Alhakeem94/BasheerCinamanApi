@@ -2,6 +2,7 @@
 using BasheerCinamanApi.Models;
 using BasheerCinamanApi.UnitOfWork.Interfaces;
 using BasheerCinamanApi.ViewModels.ProductsCatagoriesViewModels;
+using BasheerCinamanApi.ViewModels.Responses.CategoriesResponses;
 using Microsoft.EntityFrameworkCore;
 
 namespace BasheerCinamanApi.UnitOfWork.Repos
@@ -17,13 +18,17 @@ namespace BasheerCinamanApi.UnitOfWork.Repos
             _env = env;
         }
 
-        public async Task<string> AddCatagoryByAdmin(ProductCatagoryViewModel newProductCatagoryViewModel)
+        public async Task<AddCategoryResponse> AddCatagoryByAdmin(ProductCatagoryViewModel newProductCatagoryViewModel)
         {
             var CheckIfExits =await CheckIfCatagoryExists(newProductCatagoryViewModel.CatagoryName);
 
             if (CheckIfExits)
             {
-                return "The Catagory Already Exists in the Database";
+                return new AddCategoryResponse()
+                {
+                    IsSuccess =false,
+                    Message= "The Catagory Already Exists in the Database"
+                };
             }
             else
             {
@@ -35,11 +40,19 @@ namespace BasheerCinamanApi.UnitOfWork.Repos
                 var Result = await _db.SaveChangesAsync();
                 if (Result == 0)
                 {
-                    return "Error ,the Catagory Has not been Added";
+                    return new AddCategoryResponse()
+                    {
+                        IsSuccess = false,
+                        Message = "Error ,the Catagory Has not been Added"
+                    };
                 }
                 else
                 {
-                    return "The Catagory Has Been Added Successfuly";
+                    return new AddCategoryResponse()
+                    {
+                        IsSuccess =true,
+                        Message = "The Catagory Has Been Added Successfuly"
+                    };
                 }
             }
 

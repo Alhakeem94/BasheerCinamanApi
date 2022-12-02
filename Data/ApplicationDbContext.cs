@@ -20,7 +20,7 @@ namespace BasheerCinamanApi.Data
         public DbSet<ShoppingCartModel> ShoppingCartTable { get; set; }
         public DbSet<ProductBatchModel> ProductBatchTable { get; set; }
         public DbSet<ProvidorModel> ProvidorsTable { get; set; }
-
+        public DbSet<EmpClass> EmpTable { get; set; }
 
 
         private static Random random = new Random();

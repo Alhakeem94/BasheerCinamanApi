@@ -4,6 +4,7 @@ using BasheerCinamanApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BasheerCinamanApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221021065440_ChangingProductNameToRequired")]
+    partial class ChangingProductNameToRequired
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,20 +23,6 @@ namespace BasheerCinamanApi.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("BasheerCinamanApi.Models.EmpClass", b =>
-                {
-                    b.Property<string>("EmpName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.ToTable("EmpTable");
-                });
 
             modelBuilder.Entity("BasheerCinamanApi.Models.ProductBatchModel", b =>
                 {
@@ -266,28 +254,28 @@ namespace BasheerCinamanApi.Migrations
                         new
                         {
                             Id = "oi2eoij-1oqjsdkj-kaslk-OwnerRole",
-                            ConcurrencyStamp = "8P30VW5Y4Q43MN30LZ7Z",
+                            ConcurrencyStamp = "EURH11Z4AD2LFXQP1SPQ",
                             Name = "SuperAdmin",
                             NormalizedName = "SUPERADMIN"
                         },
                         new
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd93Admin",
-                            ConcurrencyStamp = "78ICXGVZ6LQMFHDFHZTI",
+                            ConcurrencyStamp = "KE5N8SOI27PRE5VBOVRH",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd93Dev",
-                            ConcurrencyStamp = "CBHFKSJCLAUWLIMTJL04",
+                            ConcurrencyStamp = "5BVTRKIP0ZDNI4IHCVMG",
                             Name = "Dev",
                             NormalizedName = "DEV"
                         },
                         new
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd93DataEntry",
-                            ConcurrencyStamp = "5JLM2OUGDGKLQBVA4DQM",
+                            ConcurrencyStamp = "1KH5S8SZIY8SV5ZM799L",
                             Name = "DataEntry",
                             NormalizedName = "DATAENTRY"
                         });
@@ -387,15 +375,15 @@ namespace BasheerCinamanApi.Migrations
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7a6d7732-e52a-402a-aea3-463200744594",
+                            ConcurrencyStamp = "9fdeea9b-21fb-40b8-b3fc-f62a86130b28",
                             Email = "BasheerSuper@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "BASHEERSUPER@GMAIL.COM",
                             NormalizedUserName = "BASHEERSUPER@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECVuVfIeDhsBAV+sGcxh4n9aLdrizmOV69Ms9KRq4vgLbZeViGBsSZ+O671MWZyGqA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECx+3MxfvLCyEz2mOA3vAoeXsg/6nkGS/7IfFrJ7qkFx6yqypUrEZiCZgGe6Q4ZxZQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "LR3QR0P6XV3BCJXILO7S",
+                            SecurityStamp = "BW6TUXPDMLE64YCRSPTV",
                             TwoFactorEnabled = false,
                             UserName = "BasheerSuper@gmail.com"
                         });

@@ -23,9 +23,7 @@ namespace BasheerCinamanApi.Controllers
         [HttpPost("AddCatagoryByAdmin")]
         public  async Task<IActionResult> AddCatagory([FromForm]ProductCatagoryViewModel newProductCatagoryViewModel)
         {
-
             return Ok(await _catagories.AddCatagoryByAdmin(newProductCatagoryViewModel));
-
         }
 
 
