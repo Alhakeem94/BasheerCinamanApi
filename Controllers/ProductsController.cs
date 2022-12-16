@@ -1,6 +1,7 @@
 ﻿using BasheerCinamanApi.Models;
 using BasheerCinamanApi.UnitOfWork.Interfaces;
 using BasheerCinamanApi.ViewModels.ProductsViewModels;
+using BasheerCinamanApi.ViewModels.Responses.CategoriesResponses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -70,7 +71,23 @@ namespace BasheerCinamanApi.Controllers
             return Ok(await _products.GetProductById(ProductId));
         }
 
-
+        [HttpPut("EditProduct")]
+        public async Task<IActionResult> editProduct([FromForm] UpdateProductViewModel updateProductViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var ResponseFromRepo = await _products.EditProductById(updateProductViewModel);
+                return Ok(ResponseFromRepo);
+            }
+            else
+            {
+                return Ok(new AddCategoryResponse()
+                {
+                    IsSuccess =false,
+                    Message = "Invalid Data, please enter valid data and send info"
+                });
+            }
+        }
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BasheerCinamanApi.Models;
 using BasheerCinamanApi.ViewModels.ProductsViewModels;
+using BasheerCinamanApi.ViewModels.Responses.CategoriesResponses;
 
 namespace BasheerCinamanApi.UnitOfWork.Interfaces
 {                    // HR
@@ -12,7 +13,7 @@ namespace BasheerCinamanApi.UnitOfWork.Interfaces
         public Task<List<ProductModel>> GetAllProductsByName(string ProductName);
         public Task<ProductModel> GetProductById(int ProductId);
         public Task<ProductModel> GetProductsUnder10Amount(int ProductId);
-
+        public Task<AddCategoryResponse> EditProductById(UpdateProductViewModel updateProductViewModel);
 
     }
 }

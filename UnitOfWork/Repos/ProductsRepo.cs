@@ -2,6 +2,7 @@
 using BasheerCinamanApi.Models;
 using BasheerCinamanApi.UnitOfWork.Interfaces;
 using BasheerCinamanApi.ViewModels.ProductsViewModels;
+using BasheerCinamanApi.ViewModels.Responses.CategoriesResponses;
 using Microsoft.EntityFrameworkCore;
 
 namespace BasheerCinamanApi.UnitOfWork.Repos
@@ -66,15 +67,6 @@ namespace BasheerCinamanApi.UnitOfWork.Repos
 
 
 
-
-
-
-
-
-
-
-
-
         private async Task<string> InputImage(IFormFile CatagoryImage)
         {
             var FileName = CatagoryImage.FileName;
@@ -91,10 +83,10 @@ namespace BasheerCinamanApi.UnitOfWork.Repos
                 memorystream.WriteTo(fs);
             }
 
-            return $"https://localhost:7098/Images/{FullName}";
+            return $"Images/{FullName}";
         }
 
-
+        //https://localhost:7098/
 
 
 
@@ -146,5 +138,89 @@ namespace BasheerCinamanApi.UnitOfWork.Repos
         {
             throw new NotImplementedException();
         }
+
+        public async Task<AddCategoryResponse> EditProductById(UpdateProductViewModel updateProductViewModel)
+        {
+            try
+            {
+                var CheckIfProductExistsInDataBase = await _db.ProductsTable.FirstOrDefaultAsync(a => a.ProductId == updateProductViewModel.Id);
+
+                if (CheckIfProductExistsInDataBase is null)
+                {
+                    return new AddCategoryResponse()
+                    {
+                        IsSuccess = false,
+                        Message = "The Product does exist in the database to be edited",
+                    };
+
+                }
+                else
+                {
+                    CheckIfProductExistsInDataBase.ProductDescription = updateProductViewModel.ProductDescription;
+                    CheckIfProductExistsInDataBase.ProductName = updateProductViewModel.ProductName;
+                    CheckIfProductExistsInDataBase.PriceOfWholeSales = updateProductViewModel.PriceOfWholeSales;
+                    CheckIfProductExistsInDataBase.PriceOfSelling = updateProductViewModel.PriceOfSelling;
+                    CheckIfProductExistsInDataBase.PriceOfPurchase = updateProductViewModel.PriceOfPurchase;
+                    CheckIfProductExistsInDataBase.CompanyId = updateProductViewModel.CompanyId;
+                    CheckIfProductExistsInDataBase.CatagoryId = updateProductViewModel.CatagoryId;
+
+                    if (updateProductViewModel.ProductImageFile != null)
+                    {
+                        var Result = DeleteOldProductImage(CheckIfProductExistsInDataBase.ProductImagePath);
+                        var ResultOfImageStoring = await InputImage(updateProductViewModel.ProductImageFile);
+                        CheckIfProductExistsInDataBase.ProductImagePath = ResultOfImageStoring;
+                    }
+
+                    _db.ProductsTable.Update(CheckIfProductExistsInDataBase);
+                    await _db.SaveChangesAsync();
+
+                    return new AddCategoryResponse()
+                    {
+                        IsSuccess = true,
+                        Message = "The Product has been updated successfuly"
+                    };
+
+
+                }
+
+            }
+            catch (Exception e)
+            {
+
+                return new AddCategoryResponse()
+                {
+                    Message = e.Message,    
+                    IsSuccess = false,
+                };
+            }
+        }
+
+
+
+
+        private bool DeleteOldProductImage(string ImagePath)
+        {
+            var FullPath = Path.Combine(_env.WebRootPath, ImagePath);
+            if (File.Exists(FullPath))
+            {
+                File.Delete(FullPath);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
     }
 }
