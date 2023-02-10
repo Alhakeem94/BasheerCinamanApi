@@ -4,6 +4,8 @@ using BasheerCinamanApi.ViewModels.ProductsViewModels;
 using BasheerCinamanApi.ViewModels.Responses.CategoriesResponses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BasheerCinamanApi.Controllers
 {
@@ -46,6 +48,7 @@ namespace BasheerCinamanApi.Controllers
 
 
         [HttpGet("GetAllProducts")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "DataEntry")]
         public async Task<IActionResult> GetAllProducts()
         {
             return Ok(await _products.GetAllProducts());

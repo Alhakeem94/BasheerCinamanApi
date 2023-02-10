@@ -21,6 +21,8 @@ namespace BasheerCinamanApi.Data
         public DbSet<ProductBatchModel> ProductBatchTable { get; set; }
         public DbSet<ProvidorModel> ProvidorsTable { get; set; }
         public DbSet<EmpClass> EmpTable { get; set; }
+        public DbSet<ShoppingReceipt> ShoppingRecieptTable { get; set; }
+
 
 
         private static Random random = new Random();

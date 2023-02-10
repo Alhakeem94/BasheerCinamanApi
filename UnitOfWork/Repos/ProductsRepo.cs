@@ -3,6 +3,8 @@ using BasheerCinamanApi.Models;
 using BasheerCinamanApi.UnitOfWork.Interfaces;
 using BasheerCinamanApi.ViewModels.ProductsViewModels;
 using BasheerCinamanApi.ViewModels.Responses.CategoriesResponses;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace BasheerCinamanApi.UnitOfWork.Repos

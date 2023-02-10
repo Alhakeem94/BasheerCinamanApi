@@ -1,6 +1,8 @@
 ﻿using BasheerCinamanApi.Models;
 using BasheerCinamanApi.UnitOfWork.Interfaces;
 using BasheerCinamanApi.ViewModels.ProductsCatagoriesViewModels;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,6 +31,7 @@ namespace BasheerCinamanApi.Controllers
 
 
         [HttpGet("GetAllCatagories")]
+        [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme,Roles = "DataEntry")]
         public async Task<IActionResult> GetAllCatagories()
         {
             return Ok(await _catagories.GetListOfAllCatagories());

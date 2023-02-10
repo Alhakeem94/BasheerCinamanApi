@@ -99,7 +99,7 @@ namespace BasheerCinamanApi.UnitOfWork.Repos
                         {
                             Success = true,
                             Token = JwtToken,
-                            UserRole = await GetUserRoleName(CheckIfUserExistsInTheDataBase)
+                            UserRole ="",
                         };
                     }
                     else
